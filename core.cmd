@@ -1,0 +1,2 @@
+@echo off
+java -jar mybatis-generator-0.0.1-SNAPSHOT.jar --driver=org.postgresql.Driver --url=jdbc:postgresql://localhost:5432/testdb --username=postgres --password=postgres --author="Li Xiaobing" --baseDirPath=E:\SelfWorkSpace\IDEASpace\mybatis-generator\target --projectName=core --targetTable=%1 --checkRepeatedColumn=%2
