@@ -22,9 +22,13 @@ public class MybatisGenerator {
 
     private static final String TEMPLATE_BASE_PATH = "/templates";
 
-    private static final String PATH1 = "/src/main/java/com/hc/plus/system/";
-    private static final String PATH2 = "/src/main/resources/mappers/";
-    private static final String PATH3 = "/src/main/java/com/hc/plus/system/";
+    private static final String PATH1_CORE = "/dolphins-core/src/main/java/com/huice/core/system/";
+    private static final String PATH1_CRM = "/dolphins-crm/src/main/java/com/huice/crm/system/";
+
+    private static final String PATH2_CORE = "/dolphins-core/src/main/resources/mappers/";
+    private static final String PATH2_CRM = "/dolphins-crm/src/main/resources/mappers/";
+
+    private static final String PATH3 = "/dolphins-dbentity/src/main/java/com/huice/database/entity/";
 
     private Config config;
 
@@ -76,15 +80,15 @@ public class MybatisGenerator {
     private PackageConfig initPackageConfig(Config config) {
         PackageConfig packageConfig = new PackageConfig();
         // 这个地方可以理解为包名，但是也可以理解为目录文件名
-        String basePackage = "com.huice.";
-        packageConfig.setParent(null);
-        packageConfig.setController(basePackage + config.getProjectName() + ".system.controller");
-        packageConfig.setService(basePackage + config.getProjectName() + ".system.service");
-        packageConfig.setServiceImpl(basePackage + config.getProjectName() + ".system.service.impl");
-        packageConfig.setMapper(basePackage + config.getProjectName() + ".system.dao");
+        packageConfig.setModuleName(null);
+        packageConfig.setParent("com.huice.");
+        packageConfig.setController(config.getProjectName() + ".system.controller");
+        packageConfig.setService(config.getProjectName() + ".system.service");
+        packageConfig.setServiceImpl(config.getProjectName() + ".system.service.impl");
+        packageConfig.setMapper(config.getProjectName() + ".system.dao");
 
         packageConfig.setXml("mappers");
-        packageConfig.setEntity(basePackage + "database.entity");
+        packageConfig.setEntity("database.entity");
         return packageConfig;
     }
 
@@ -156,6 +160,8 @@ public class MybatisGenerator {
         };
 
         final String baseDirPath = config.getBaseDirPath();
+        final String PATH1 = Config.PROJECT_NAME_CORE.equals(config.getProjectName()) ? PATH1_CORE : PATH1_CRM;
+        final String PATH2 = Config.PROJECT_NAME_CORE.equals(config.getProjectName()) ? PATH2_CORE : PATH2_CRM;
 
         List<FileOutConfig> focList = new ArrayList<>();
         // 设置controller

@@ -48,7 +48,7 @@ public class MybatisGeneratorApplication implements ApplicationRunner {
 
 
         List<String> checkRepeatedColumn = args.getOptionValues("checkRepeatedColumn");
-        config.setNeedCheckRepeated(checkRepeatedColumn != null && checkRepeatedColumn.get(0) != null);
+        config.setNeedCheckRepeated(checkRepeatedColumn != null && checkRepeatedColumn.get(0) != null && !checkRepeatedColumn.get(0).equals(""));
         if (config.isNeedCheckRepeated()) {
             config.setCheckRepeatedColumn(checkRepeatedColumn.get(0));
             config.setCheckRepeatedField(convertUnderlineToCamel(config.getCheckRepeatedColumn()));

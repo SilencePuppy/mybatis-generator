@@ -56,10 +56,10 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     public ResultCode updateData(${entity} ${entity?uncap_first}){
         <#if cfg.needCheckRepeated>
             <#assign entityCamelName = entity?uncap_first>
-            boolean repeated = is${cfg.checkRepeatedField?cap_first}Repeated(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
-            if(repeated){
+        boolean repeated = is${cfg.checkRepeatedField?cap_first}Repeated(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
+        if(repeated){
             return ResultCode.NAME_REPEATED;
-            }
+        }
         </#if>
         baseMapper.updateById(${entity?uncap_first});
         return ResultCode.SERVICE_OK;
