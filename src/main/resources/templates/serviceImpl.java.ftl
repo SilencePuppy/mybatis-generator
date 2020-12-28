@@ -36,7 +36,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     public ResultCode add(${entity} ${entity?uncap_first}){
         <#if cfg.needCheckRepeated>
         <#assign entityCamelName = entity?uncap_first>
-        boolean repeated = is${cfg.checkRepeatedField?cap_first}Repeated(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
+        boolean repeated = findRepeated${cfg.checkRepeatedField?cap_first}(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
         if(repeated){
             return ResultCode.NAME_REPEATED;
         }
@@ -54,7 +54,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     public ResultCode updateData(${entity} ${entity?uncap_first}){
         <#if cfg.needCheckRepeated>
             <#assign entityCamelName = entity?uncap_first>
-        boolean repeated = is${cfg.checkRepeatedField?cap_first}Repeated(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
+        boolean repeated = findRepeated${cfg.checkRepeatedField?cap_first}(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
         if(repeated){
             return ResultCode.NAME_REPEATED;
         }
@@ -70,7 +70,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     <#if cfg.needCheckRepeated>
     @Override
-    public boolean is${cfg.checkRepeatedField?cap_first}Repeated(Long id,String ${cfg.checkRepeatedField}){
+    public boolean findRepeated${cfg.checkRepeatedField?cap_first}(Long id,String ${cfg.checkRepeatedField}){
         int num = baseMapper.count${cfg.checkRepeatedField?cap_first}(id,${cfg.checkRepeatedField});
         return num != 0;
     }

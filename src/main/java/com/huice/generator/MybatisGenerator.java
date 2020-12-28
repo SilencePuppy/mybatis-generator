@@ -94,7 +94,8 @@ public class MybatisGenerator {
     }
 
     private DataSourceConfig initDataSourceConfig(Config config) {
-        DataSourceConfig dsc = new DataSourceConfig();
+        // 设置为自定义的数据源配置器，为了能够映射pgsql的timestamptz;
+        MyDataSourceConfig dsc = new MyDataSourceConfig();
         dsc.setDriverName(config.getDriver());
         dsc.setUrl(config.getUrl());
         dsc.setUsername(config.getUsername());
@@ -123,8 +124,9 @@ public class MybatisGenerator {
         // 正则表达式
         strategyConfig.setInclude(config.getTargetTable());
 
+        // 设置各个类的默认父类
 //        strategyConfig.setEntityTableFieldAnnotationEnable(true); // 实体类字段上的@TableField(value="密码");
-//        strategyConfig.setSuperEntityClass("com.hc.entity.MySupser");
+        strategyConfig.setSuperEntityClass("com.huice.database.entity.BaseEntity");
 //        strategyConfig.setSuperEntityColumns("id","name");写于父类中的公共字段
 //        strategyConfig.setSuperMapperClass("com.hc.mapper.MyMapper");
 //        strategyConfig.setSuperServiceClass("com.hc.service.MyService");

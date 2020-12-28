@@ -1,0 +1,11 @@
+targetTable:
+dirver:
+url:
+username:
+password:
+
+author:
+projectName:
+baseDirPath:
+# 需要判重的字段
+checkRepeatedColumn:

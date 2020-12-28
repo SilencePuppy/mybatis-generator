@@ -1,17 +1,30 @@
 package com.huice;
 
 import com.huice.generator.MybatisGenerator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.List;
 
 @SpringBootApplication
 public class MybatisGeneratorApplication implements ApplicationRunner {
+    @Value("targetTable")
+    private String targetTable;
+    private String driver;
+    private String url;
+    private String username;
+    private String password;
+    private String author;
+    private String projectName;
+    private String baseDirPath;
+    private String checkRepeatedColumn;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(MybatisGeneratorApplication.class)
@@ -21,14 +34,14 @@ public class MybatisGeneratorApplication implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args){
+        System.out.println(targetTable);
         Config config = new Config();
         // 数据库
         config.setDriver(args.getOptionValues("driver").get(0));
         config.setUrl(args.getOptionValues("url").get(0));
         config.setUsername(args.getOptionValues("username").get(0));
         config.setPassword(args.getOptionValues("password").get(0));
-        config.setTargetTable(args.getOptionValues("targetTable").get(0));
 
         config.setAuthor(args.getOptionValues("author").get(0));
         //项目名

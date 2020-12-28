@@ -76,7 +76,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
      * @author ${author}
      * @date ${cfg.datetime}
      */
-    boolean is${cfg.checkRepeatedField?cap_first}Repeated(Long id,String ${cfg.checkRepeatedField});
+    boolean findRepeated${cfg.checkRepeatedField?cap_first}(Long id,String ${cfg.checkRepeatedField});
     </#if>
 }
 </#if>
