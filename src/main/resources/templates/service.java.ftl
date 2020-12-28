@@ -5,7 +5,6 @@ import ${superServiceClassPackage};
 
 import com.huice.common.enums.ResultCode;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.huice.common.util.JsonBean;
 
 /**
  *
