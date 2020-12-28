@@ -81,7 +81,7 @@ public class MybatisGenerator {
         PackageConfig packageConfig = new PackageConfig();
         // 这个地方可以理解为包名，但是也可以理解为目录文件名
         packageConfig.setModuleName(null);
-        packageConfig.setParent("com.huice.");
+        packageConfig.setParent("com.huice");
         packageConfig.setController(config.getProjectName() + ".system.controller");
         packageConfig.setService(config.getProjectName() + ".system.service");
         packageConfig.setServiceImpl(config.getProjectName() + ".system.service.impl");
