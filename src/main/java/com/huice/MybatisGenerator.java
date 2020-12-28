@@ -110,7 +110,7 @@ public class MybatisGenerator {
         // 表字段下划线转驼峰
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setTablePrefix("s");
-        strategyConfig.setFieldPrefix("s");
+//        strategyConfig.setFieldPrefix("s");
         strategyConfig.setEnableSqlFilter(true);
         strategyConfig.setEntityLombokModel(true);
         strategyConfig.setChainModel(false);
