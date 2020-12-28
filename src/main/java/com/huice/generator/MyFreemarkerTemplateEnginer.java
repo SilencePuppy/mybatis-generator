@@ -1,4 +1,4 @@
-package com.huice;
+package com.huice.generator;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
