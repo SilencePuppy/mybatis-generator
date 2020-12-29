@@ -98,7 +98,7 @@ public class MybatisGenerator {
         MyDataSourceConfig dsc = new MyDataSourceConfig();
         dsc.setDriverName(config.getDriver());
         dsc.setUrl(config.getUrl());
-        dsc.setUsername(config.getUsername());
+        dsc.setUsername(config.getDbUsername());
         dsc.setPassword(config.getPassword());
         return dsc;
     }

@@ -8,22 +8,30 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Optional;
 
 @SpringBootApplication
 public class MybatisGeneratorApplication implements ApplicationRunner {
-    @Value("targetTable")
+
+    @Value("${targetTable}")
     private String targetTable;
+    @Value("${driver}")
     private String driver;
+    @Value("${url}")
     private String url;
-    private String username;
+    @Value("${dbUsername}")
+    private String dbUsername;
+    @Value("${password}")
     private String password;
+    @Value("${author}")
     private String author;
+    @Value("${projectName}")
     private String projectName;
+    @Value("${baseDirPath}")
     private String baseDirPath;
+    @Value("${checkRepeatedColumn}")
     private String checkRepeatedColumn;
 
     public static void main(String[] args) {
@@ -34,45 +42,65 @@ public class MybatisGeneratorApplication implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args){
-        System.out.println(targetTable);
-        Config config = new Config();
-        // 数据库
-        config.setDriver(args.getOptionValues("driver").get(0));
-        config.setUrl(args.getOptionValues("url").get(0));
-        config.setUsername(args.getOptionValues("username").get(0));
-        config.setPassword(args.getOptionValues("password").get(0));
+    public void run(ApplicationArguments args) {
 
-        config.setAuthor(args.getOptionValues("author").get(0));
-        //项目名
-        String projectName = args.getOptionValues("projectName").get(0);
-        if (!Config.PROJECT_NAME_CORE.equals(projectName) && !Config.PROJECT_NAME_CRM.equals(projectName)) {
-            System.out.println("项目名称不对：" + projectName);
-            return;
-        }
-        config.setProjectName(projectName);
-        config.setBaseDirPath(args.getOptionValues("baseDirPath").get(0));
-
-        List<String> targetTable = args.getOptionValues("targetTable");
-        if (targetTable == null || targetTable.size() == 0) {
-            System.out.println("请输入目标表名");
-            return;
-        }
-        config.setTargetTable(targetTable.get(0));
-
-
-        List<String> checkRepeatedColumn = args.getOptionValues("checkRepeatedColumn");
-        config.setNeedCheckRepeated(checkRepeatedColumn != null && checkRepeatedColumn.get(0) != null && !checkRepeatedColumn.get(0).equals(""));
-        if (config.isNeedCheckRepeated()) {
-            config.setCheckRepeatedColumn(checkRepeatedColumn.get(0));
-            config.setCheckRepeatedField(convertUnderlineToCamel(config.getCheckRepeatedColumn()));
-        }
-
-        MybatisGenerator mybatisGenerator = new MybatisGenerator(config);
+        MybatisGenerator mybatisGenerator = new MybatisGenerator(buildConfig(args));
 
         mybatisGenerator.execute();
     }
 
+    /**
+     * Config构建方法
+     * @param args cmd参数集合
+     * @return {@link Config}
+     * @author Li Xiaobing
+     * @date 2020/12/29 9:52
+     */
+    private Config buildConfig(ApplicationArguments args) {
+        targetTable = optionValueBuild("targetTable",targetTable,args);
+        driver = optionValueBuild("driver",driver,args);
+        url = optionValueBuild("url",url,args);
+        dbUsername = optionValueBuild("dbUsername",dbUsername,args);
+        password = optionValueBuild("password",password,args);
+        author = optionValueBuild("author",author,args);
+        projectName = optionValueBuild("projectName",projectName,args);
+        baseDirPath = optionValueBuild("baseDirPath",baseDirPath,args);
+        checkRepeatedColumn = optionValueBuild("checkRepeatedColumn",checkRepeatedColumn,args);
+
+
+        Config config = new Config();
+        config.setTargetTable(targetTable).setDriver(driver).setUrl(url).setDbUsername(dbUsername).setPassword(password)
+                .setAuthor(author).setProjectName(projectName).setBaseDirPath(baseDirPath);
+        if (checkRepeatedColumn == null || checkRepeatedColumn.equals("")) {
+            config.setNeedCheckRepeated(false);
+        } else {
+            config.setNeedCheckRepeated(true);
+            config.setCheckRepeatedColumn(checkRepeatedColumn);
+            config.setCheckRepeatedField(convertUnderlineToCamel(checkRepeatedColumn));
+        }
+        return config;
+    }
+
+    /**
+     *
+     * @param fieldName 待处理字段名
+	 * @param ymlValue 字段从yml读取的默认值
+	 * @param args cmd命令行参入集合对象
+     * @return {@link String} 如果cmd命令行传入了参数则命令行优先，否则使用yml中的值
+     * @author Li Xiaobing
+     * @date 2020/12/29 9:49
+     */
+    private String optionValueBuild(String fieldName, String ymlValue, ApplicationArguments args) {
+       return Optional.ofNullable(args.getOptionValues(fieldName)).orElse(Collections.singletonList(ymlValue)).get(0);
+    }
+
+    /**
+     * 下划线转驼峰
+     * @param column 待处理文本
+     * @return {@link String}
+     * @author Li Xiaobing
+     * @date 2020/12/29 9:51
+     */
     private String convertUnderlineToCamel(String column) {
         String[] ss = column.split("_");
         StringBuilder sb = new StringBuilder();

@@ -1,11 +1,11 @@
-targetTable:
-dirver:
-url:
-username:
-password:
-
-author:
-projectName:
-baseDirPath:
-# 需要判重的字段
+targetTable: s_org
+projectName: core
+driver: org.postgresql.Driver
+url: jdbc:postgresql://localhost:5432/testdb
+# 此处是为了和System.getProperties("username")重复
+dbUsername: postgres
+password: postgres
+author: Li Xiaobing
+baseDirPath: 'E:\SelfWorkSpace\IDEASpace\mybatis-generator\tt'
+# 需要判重的字
 checkRepeatedColumn:

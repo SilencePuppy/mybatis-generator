@@ -1,6 +1,7 @@
 package com.huice;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @classname Config
@@ -8,10 +9,11 @@ import lombok.Data;
  * @date 2020/12/25 16:18
  */
 @Data
+@Accessors(chain = true)
 public class Config {
     private String driver;
     private String url;
-    private String username;
+    private String dbUsername;
     private String password;
 
     public static final String PROJECT_NAME_CORE="core";
