@@ -26,10 +26,4 @@ public class Config {
     private String author;
 
     private String targetTable;
-
-    private boolean needCheckRepeated;
-
-    private String checkRepeatedField;
-
-    private String checkRepeatedColumn;
 }

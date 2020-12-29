@@ -26,7 +26,7 @@ import ${superControllerClassPackage};
 /**
  *
  * ${table.comment!} 前端控制器
- * @classname ${table.controllerName}
+ * @Classname ${table.controllerName}
  * @author ${author}
  * @since ${cfg.datetime}
  */
