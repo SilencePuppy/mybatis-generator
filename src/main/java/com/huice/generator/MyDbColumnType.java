@@ -30,11 +30,11 @@ public enum MyDbColumnType implements IColumnType {
 
     @Override
     public String getType() {
-        return null;
+        return type;
     }
 
     @Override
     public String getPkg() {
-        return null;
+        return pkg;
     }
 }

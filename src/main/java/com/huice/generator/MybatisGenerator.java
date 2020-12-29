@@ -127,6 +127,8 @@ public class MybatisGenerator {
         // 设置各个类的默认父类
 //        strategyConfig.setEntityTableFieldAnnotationEnable(true); // 实体类字段上的@TableField(value="密码");
         strategyConfig.setSuperEntityClass("com.huice.database.entity.BaseEntity");
+        strategyConfig.setSuperEntityColumns("creator_id","creator_name","created_time","modifier_id","modifier_name"
+                ,"modified_time","tenant_id");
 //        strategyConfig.setSuperEntityColumns("id","name");写于父类中的公共字段
 //        strategyConfig.setSuperMapperClass("com.hc.mapper.MyMapper");
 //        strategyConfig.setSuperServiceClass("com.hc.service.MyService");

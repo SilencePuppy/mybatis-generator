@@ -4,9 +4,6 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.ITypeConvert;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
-import com.sun.media.sound.SF2GlobalRegion;
-
-import java.nio.file.NotLinkException;
 
 import static com.baomidou.mybatisplus.generator.config.rules.DbColumnType.*;
 
@@ -75,7 +72,7 @@ public class MyPostgreSqlTypeConvert implements ITypeConvert {
                         return DbColumnType.LOCAL_DATE;
                     case "time":
                         return DbColumnType.LOCAL_TIME;
-                    case "offsetdatetime":
+                    case "timestamp(6) with time zone":
                         return MyDbColumnType.OFFSET_DATE_TIME;
                     default:
                         return DbColumnType.LOCAL_DATE_TIME;
