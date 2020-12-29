@@ -11,8 +11,5 @@ import ${superMapperClassPackage};
  * @since ${cfg.datetime}
  */
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
-    <#if cfg.needCheckRepeated>
 
-        int count${cfg.checkRepeatedField?cap_first}(Long id,String ${cfg.checkRepeatedField});
-    </#if>
 }

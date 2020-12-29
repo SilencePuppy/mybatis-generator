@@ -26,21 +26,7 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
     @Override
-    public IPage<${entity}> findListByPage(Integer currentPage, Integer pageRows){
-        IPage<${entity}> page = new Page<>(currentPage,pageRows,false);
-        page = baseMapper.selectPage(page, Wrappers.<${entity}>emptyWrapper());
-        return page;
-    }
-
-    @Override
     public ResultCode add(${entity} ${entity?uncap_first}){
-        <#if cfg.needCheckRepeated>
-        <#assign entityCamelName = entity?uncap_first>
-        boolean repeated = findRepeated${cfg.checkRepeatedField?cap_first}(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
-        if(repeated){
-            return ResultCode.NAME_REPEATED;
-        }
-        </#if>
         baseMapper.insert(${entity?uncap_first});
         return ResultCode.SERVICE_OK;
     }
@@ -52,13 +38,6 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     @Override
     public ResultCode updateData(${entity} ${entity?uncap_first}){
-        <#if cfg.needCheckRepeated>
-            <#assign entityCamelName = entity?uncap_first>
-        boolean repeated = findRepeated${cfg.checkRepeatedField?cap_first}(${entityCamelName}.getId(),${entityCamelName}.get${cfg.checkRepeatedField?cap_first}());
-        if(repeated){
-            return ResultCode.NAME_REPEATED;
-        }
-        </#if>
         baseMapper.updateById(${entity?uncap_first});
         return ResultCode.SERVICE_OK;
     }
@@ -67,13 +46,5 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     public ${entity} findById(Long id){
         return baseMapper.selectById(id);
     }
-
-    <#if cfg.needCheckRepeated>
-    @Override
-    public boolean findRepeated${cfg.checkRepeatedField?cap_first}(Long id,String ${cfg.checkRepeatedField}){
-        int num = baseMapper.count${cfg.checkRepeatedField?cap_first}(id,${cfg.checkRepeatedField});
-        return num != 0;
-    }
-    </#if>
 }
 </#if>

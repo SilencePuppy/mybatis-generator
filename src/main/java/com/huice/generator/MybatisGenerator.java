@@ -125,14 +125,14 @@ public class MybatisGenerator {
         strategyConfig.setInclude(config.getTargetTable());
 
         // 设置各个类的默认父类
-//        strategyConfig.setEntityTableFieldAnnotationEnable(true); // 实体类字段上的@TableField(value="密码");
-        strategyConfig.setSuperEntityClass("com.huice.database.entity.BaseEntity");
-        strategyConfig.setSuperEntityColumns("creator_id","creator_name","created_time","modifier_id","modifier_name"
-                ,"modified_time","tenant_id");
-//        strategyConfig.setSuperEntityColumns("id","name");写于父类中的公共字段
+        // strategyConfig.setEntityTableFieldAnnotationEnable(true); // 实体类字段上的@TableField(value="密码");
+        strategyConfig.setSuperEntityClass("com.huice.database.entity.base.BaseEntity");
+        // 写于父类中的公共字段
+        strategyConfig.setSuperEntityColumns("creator_id", "creator_name", "created_time", "modifier_id", "modifier_name"
+                , "modified_time", "tenant_id");
+        strategyConfig.setSuperServiceClass("com.huice.common.service.EnhanceIService");
+        strategyConfig.setSuperServiceImplClass("com.huice.common.service.EnhanceServiceImpl");
 //        strategyConfig.setSuperMapperClass("com.hc.mapper.MyMapper");
-//        strategyConfig.setSuperServiceClass("com.hc.service.MyService");
-//        strategyConfig.setSuperServiceImplClass("com.hc.service.imp.MyServiceImp");
 //        strategyConfig.setSuperControllerClass("com.hc.controller.MyController");
         return strategyConfig;
     }

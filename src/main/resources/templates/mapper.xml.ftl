@@ -37,12 +37,4 @@
         </sql>
 
     </#if>
-    <#if cfg.needCheckRepeated>
-        <select id="count${cfg.checkRepeatedField?cap_first}" resultType="int">
-            select count(*) from ${table.name} where ${cfg.checkRepeatedColumn} =<@mapperSharp value=cfg.checkRepeatedField/>
-            <if test="id!=null">
-                and id != <@mapperSharp value='id'/>
-            </if>
-        </select>
-    </#if>
 </mapper>
