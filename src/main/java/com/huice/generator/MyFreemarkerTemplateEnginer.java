@@ -1,6 +1,7 @@
 package com.huice.generator;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
@@ -69,5 +70,15 @@ public class MyFreemarkerTemplateEnginer extends FreemarkerTemplateEngine {
             System.out.println(e.getMessage());
         }
         return this;
+    }
+
+    @Override
+    public Map<String, Object> getObjectMap(TableInfo tableInfo) {
+        Map<String, Object> objectMap = super.getObjectMap(tableInfo);
+        ConfigBuilder config = getConfigBuilder();
+        if(config.getStrategyConfig().isControllerMappingHyphenStyle()){
+            objectMap.put("controllerMappingHyphen", StringUtils.underlineToCamel(tableInfo.getEntityPath()));
+        }
+        return objectMap;
     }
 }
