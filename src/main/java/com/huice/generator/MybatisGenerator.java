@@ -130,8 +130,14 @@ public class MybatisGenerator {
         // 写于父类中的公共字段
         strategyConfig.setSuperEntityColumns("creator_id", "creator_name", "created_time", "modifier_id", "modifier_name"
                 , "modified_time", "tenant_id");
-        strategyConfig.setSuperServiceClass("com.huice.common.service.EnhanceIService");
-        strategyConfig.setSuperServiceImplClass("com.huice.common.service.EnhanceServiceImpl");
+        if (Config.PROJECT_NAME_CORE.equals(config.getProjectName())) {
+            strategyConfig.setSuperServiceClass("com.huice.core.system.service.CoreEnhanceIService");
+            strategyConfig.setSuperServiceImplClass(" com.huice.core.system.service.impl.CoreEnhanceServiceImpl");
+        } else {
+            strategyConfig.setSuperServiceClass("com.huice.crm.system.service.CrmEnhanceIService");
+            strategyConfig.setSuperServiceImplClass("com.huice.crm.system.service.impl.CrmEnhanceServiceImpl");
+        }
+
 //        strategyConfig.setSuperMapperClass("com.hc.mapper.MyMapper");
 //        strategyConfig.setSuperControllerClass("com.hc.controller.MyController");
         return strategyConfig;

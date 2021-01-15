@@ -36,7 +36,9 @@ import ${superControllerClassPackage};
 <#else>
 @Controller
 </#if>@RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
-<#if kotlin>class ${table.controllerName}<#if superControllerClass??>:${superControllerClass}()</#if><#else><#if superControllerClass??>public class ${table.controllerName} extends ${superControllerClass}{<#else>public class ${table.controllerName} {</#if>
+<#if kotlin>class ${table.controllerName}<#if superControllerClass??>:${superControllerClass}()</#if><#else><#if
+superControllerClass??>public class ${table.controllerName} extends ${superControllerClass}{<#else>public class
+    ${table.controllerName} extends BaseController{</#if>
 
     private Logger log = LoggerFactory.getLogger(getClass());
     @Resource
@@ -56,26 +58,26 @@ import ${superControllerClassPackage};
     @PostMapping("create")
     public JsonBean add(@RequestBody ${entity} ${entity?uncap_first}){
         ResultCode resultCode = ${table.serviceName?uncap_first}.add(${entity?uncap_first});
-        return JsonBean.returnResponse(ResultCode.SERVICE_OK.equals(resultCode), resultCode);
+        return jsonBeanBuilder.build(resultCode);
     }
 
     @ApiOperation(value = "删除${table.comment!}")
-    @DeleteMapping("delete/{id}")
-    public JsonBean delete(@PathVariable("id") Long id){
+    @GetMapping("delete")
+    public JsonBean delete(@RequestParam("id") Long id){
         ${table.serviceName?uncap_first}.delete(id);
-        return JsonBean.returnResponse();
+        return jsonBeanBuilder.success();
     }
 
     @ApiOperation(value = "更新${table.comment!}")
-    @PatchMapping("update")
+    @PostMapping("update")
     public JsonBean update(@RequestBody ${entity} ${entity?uncap_first}){
         ResultCode resultCode = ${table.serviceName?uncap_first}.updateData(${entity?uncap_first});
-        return JsonBean.returnResponse(ResultCode.SERVICE_OK.equals(resultCode), resultCode);
+        return jsonBeanBuilder.build(resultCode);
     }
 
     @ApiOperation(value = "id查询${table.comment!}")
-    @GetMapping("info/{id}")
-    public JsonBean findById(@PathVariable Long id){
+    @GetMapping("detail")
+    public JsonBean findById(@RequestParam("id") Long id){
         ${entity} ${entity?uncap_first}= ${table.serviceName?uncap_first}.findById(id);
         return JsonBean.returnResponse(${entity?uncap_first});
     }

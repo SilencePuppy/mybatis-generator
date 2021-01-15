@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huice.core.system.dao.RoleFunctionDao">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="com.huice.database.entity.RoleFunction">
+                    <id column="id" property="id"/>
+                <result column="creator_id" property="creatorId"/>
+                <result column="creator_name" property="creatorName"/>
+                <result column="created_time" property="createdTime"/>
+                <result column="modifier_id" property="modifierId"/>
+                <result column="modifier_name" property="modifierName"/>
+                <result column="modified_time" property="modifiedTime"/>
+                <result column="tenant_id" property="tenantId"/>
+                    <result column="role_id" property="roleId"/>
+                    <result column="function_id" property="functionId"/>
+                    <result column="operation_ids" property="operationIds"/>
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                creator_id,
+                creator_name,
+                created_time,
+                modifier_id,
+                modifier_name,
+                modified_time,
+                tenant_id,
+            id, role_id, function_id, operation_ids
+        </sql>
+
+</mapper>

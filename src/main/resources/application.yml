@@ -1,4 +1,4 @@
-targetTable: s_operation
+targetTable: s_role_function
 projectName: core
 driver: org.postgresql.Driver
 url: jdbc:postgresql://localhost:5432/testdb
@@ -6,6 +6,6 @@ url: jdbc:postgresql://localhost:5432/testdb
 dbUsername: postgres
 password: postgres
 author: Li Xiaobing
-baseDirPath: 'D:\gitspace\oa_service'
+baseDirPath: 'E:\SelfWorkSpace\IDEASpace\mybatis-generator\tt'
 # 需要判重的字
 checkRepeatedColumn:

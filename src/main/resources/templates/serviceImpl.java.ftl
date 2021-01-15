@@ -7,8 +7,6 @@ import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 import com.huice.common.enums.ResultCode;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
  *
